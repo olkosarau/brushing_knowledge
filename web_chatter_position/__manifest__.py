@@ -2,7 +2,7 @@
     'name': 'Chatter Position',
     'summary': 'Chatter Position',
     'description': '''
-        Configurable Chatter Position. Change Chatter Position in User Preferences. Change Chatter Position on the fly.
+        Configurable Chatter Position. Change Chatter Position in User Preferences
     ''',
     'version': '17.0.1.0.0', 
     'category': 'Tools/UI',
