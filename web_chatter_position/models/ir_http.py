@@ -15,6 +15,13 @@ class IrHttp(models.AbstractModel):
     #----------------------------------------------------------
     
     def session_info(self):
+        '''
+        The method returns information about the current user session.
+
+        :return: dict - dictionary with session information;
+                     the 'chatter_position' key contains the user's chat position.
+                     In case of error, the string 'Not session info' is returned.
+        '''
         try:
             result = super(IrHttp, self).session_info()
             result['chatter_position'] = self.env.user.chatter_position
