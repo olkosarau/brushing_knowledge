@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_split_manufacturing_order_wizard" model="ir.ui.view">
+        <field name="name">split.manufacturing.order.wizard.form</field>
+        <field name="model">split.manufacturing.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Split Manufacturing Order">
+                <sheet>
+                    <group>
+                        <field name="order_id" widget="many2one"/>
+                        <field name="number_of_orders" string="Split by"/>
+                    </group>
+                        <field name="order_mrp_line_ids"
+                               options="{'no_create': True, 'no_open': True}"
+                               widget="one2many"
+                               nolabel="1"
+                        >
+                            <tree string="Order Line" editable="top" limit="25">
+                                <field name="order_mrp_id" invisible="1"/>
+                                <field name="number_order"/>
+                                <field name="qty_products"/>
+                            </tree>
+                        </field>
+                </sheet>
+                <footer>
+                    <button string="Continue" type="object" name="continue_orders" class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_split_manufacturing_order_wizard" model="ir.actions.act_window">
+        <field name="name">Split Manufacturing Order</field>
+        <field name="res_model">split.manufacturing.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
