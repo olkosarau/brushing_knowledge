@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_split_manufacturing_order_wizard,split.manufacturing.order.wizard,model_split_manufacturing_order_wizard,,1,1,1,1
+access_split_manufacturing_order_line,split.manufacturing.order.line,model_split_manufacturing_order_line,,1,1,1,1
+
