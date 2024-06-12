@@ -32,10 +32,28 @@ class SplitManufacturingOrderWizard(models.TransientModel):
             extra_qty = product_qty % self.number_of_orders
 
             lines = []
+            current_lines = len(self.order_mrp_line_ids)
             for i in range(self.number_of_orders):
                 qty = base_qty + 1 if i < extra_qty else base_qty
-                lines.append((0, 0, {'number_order': i + 1, 'qty_products': qty}))
-            self.order_mrp_line_ids = lines
+                if i < current_lines:
+                    line = self.order_mrp_line_ids[i]
+                    line.number_order = i + 1
+                    line.qty_products = qty
+                else:
+                    lines.append((0, 0, {'number_order': i + 1, 'qty_products': qty}))
+
+            self.order_mrp_line_ids = [(2, line.id) for line in self.order_mrp_line_ids[self.number_of_orders:]] + lines
+
+    # @api.onchange('order_mrp_line_ids')
+    # def _recalculate_order_lines(self):
+    #     total_qty = sum(line.qty_products for line in self.order_mrp_line_ids)
+    #     if len(self.order_mrp_line_ids) > 0:
+    #         base_qty = total_qty // len(self.order_mrp_line_ids)
+    #         extra_qty = total_qty % len(self.order_mrp_line_ids)
+    #         for index, line in enumerate(self.order_mrp_line_ids):
+    #             ln = self.order_mrp_line_ids[index]
+    #             ln.number_order = index + 1
+    #             ln.qty_products = base_qty + 1 if index < extra_qty else base_qty
 
     def continue_orders(self):
         active_id = self.env.context.get('default_order_id')
@@ -61,7 +79,7 @@ class SplitManufacturingOrderLine(models.TransientModel):
     _name = 'split.manufacturing.order.line'
     _description = 'Split Manufacturing Order Line'
 
-    order_mrp_id = fields.Many2one('split.manufacturing.order.wizard', string="Order MRP")
+    order_mrp_id = fields.Many2one('split.manufacturing.order.wizard', string="Order MRP", invisible=True)
     number_order = fields.Integer(string='Number Order')
     qty_products = fields.Integer(string='Quantity')
 

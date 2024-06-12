@@ -10,12 +10,11 @@
                         <field name="number_of_orders" string="Split by"/>
                     </group>
                         <field name="order_mrp_line_ids"
-                               options="{'no_create': True, 'no_open': True}"
-                               widget="one2many"
+                               options="{'no_create': True, 'no_delete': True, 'no_open': True}"
                                nolabel="1"
-                        >
-                            <tree string="Order Line" editable="top" limit="25">
-                                <field name="order_mrp_id" invisible="1"/>
+                               readonly="1">
+                            <tree string="Order Line" editable="bottom" limit="25">
+                                <field name="order_mrp_id" invisible="1" attrs="{'invisible': [('order_mrp_id', '!=', False)]}" />
                                 <field name="number_order"/>
                                 <field name="qty_products"/>
                             </tree>
