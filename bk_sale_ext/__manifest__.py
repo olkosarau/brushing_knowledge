@@ -8,7 +8,7 @@
     'category': 'Sales/Sales',
     'depends': [
         'sale',
-        'stock'
+        'stock',
     ],
     'data': [
         # SECURITY
