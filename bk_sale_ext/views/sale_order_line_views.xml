@@ -12,7 +12,13 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
                 <field name="product_id_domain_ids" optional="hide"/>
-                <field name="is_express_delivery" widget="boolean_button" optional="hide"/>
+                <field name="is_express_delivery" widget="boolean_toggle" optional="hide"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_trigger_user_error" type="object" string="Trigger Error" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="sample_field"/>
             </xpath>
         </field>
     </record>

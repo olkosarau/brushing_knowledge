@@ -1,13 +1,35 @@
+import logging
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def action_confirm(self):
+    sample_field = fields.Char(string='Sample Test Field')
 
+    def action_trigger_user_error(self):
+        fields_to_check = [
+            'partner_id', 'user_id', 'team_id',
+            'date_order', 'company_id', 'currency_id',
+            'pricelist_id', 'payment_term_id', 'sample_field'
+        ]
+
+        changes = {}
+        for field in fields_to_check:
+            if self._origin[field] != self[field]:
+                changes[field] = self[field]
+
+        if changes:
+            self.write(changes)
+            self.env.cr.commit()
+
+        raise UserError('This is a user-triggered error.')
+
+    def action_confirm(self):
         normal_lines = self.order_line.filtered(lambda line: not line.is_express_delivery)
         express_lines = self.order_line.filtered(lambda line: line.is_express_delivery)
 
