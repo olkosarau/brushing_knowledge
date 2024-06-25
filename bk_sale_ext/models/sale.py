@@ -95,3 +95,9 @@ class SaleOrderLine(models.Model):
                 line.product_id_domain_ids = self.env['product.product'].search([('sale_ok', '=', True), ('id', 'not in', selected_product_ids)]).ids
             else:
                 line.product_id_domain_ids = self.env['product.product'].search([('sale_ok', '=', True)]).ids
+
+
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    sale_line_id = fields.Many2one('sale.order.line', string='Sale Order Line', ondelete='cascade')
