@@ -20,6 +20,11 @@
         # WIZARDS
 
     ],
+    'assets': {
+        'web.assets_backend': [
+            'bk_sale_ext/static/src/js/custom_field_color.js',
+        ],
+    },
     'installable': True,
     'application': False,
     'auto_install': False,

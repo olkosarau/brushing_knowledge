@@ -19,6 +19,7 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="sample_field"/>
+                <field name="custom_number" widget="color_widget"/>
             </xpath>
         </field>
     </record>
