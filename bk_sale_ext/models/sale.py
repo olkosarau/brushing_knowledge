@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     sample_field = fields.Char(string='Sample Test Field')
+    custom_number = fields.Float(string="Custom Number")
 
     def action_trigger_user_error(self):
         fields_to_check = [
